@@ -3,8 +3,8 @@ name: CI-APP
 on:
   workflow_call:
     inputs:
-      config-path:
-        required: true
+      runs-on:
+        required: false
         type: string
         default: ubuntu-latest
 
