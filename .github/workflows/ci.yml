@@ -28,6 +28,7 @@ jobs:
             for(command in configJson["run-command"]){
               commands[configJson["run-command"][command]] = configJson["run-command"][command]
             }
+            console.log(command)
             core.setOutput("command", command)
   
   
