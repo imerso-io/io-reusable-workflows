@@ -24,10 +24,7 @@ jobs:
         with:
           script: |
             const configJson = require("./config-ci.json")
-            let commands = {}
-            for(command in configJson["run-command"]){
-              commands[configJson["run-command"][command]] = configJson["run-command"][command]
-            }
+            let commands = configJson["run-command"]
             console.log(commands)
             core.setOutput("command", commands)
   
