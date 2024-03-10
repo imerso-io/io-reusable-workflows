@@ -34,7 +34,7 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     strategy:
       matrix:
-        command: ${{ needs.get-config.outputs.command }}
+        command: ${{ JSON.stringfy(needs.get-config.outputs.command) }}
     steps:      
       - name: Clone Repository
         uses: actions/checkout@v3
