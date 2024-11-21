@@ -1,0 +1,16 @@
+name: "IA Reviwer"
+on:
+  schedule:
+  - cron: "0 2 * * 1-5"
+
+
+
+jobs:
+  ia-reviwer:
+    name: IA Reviwer 
+    runs-on: ubuntu-22.04
+    
+    steps:
+     - name: teste
+       run: |
+         echo teste
