@@ -19,8 +19,8 @@ on:
         required: true
 
 jobs:
-  ia-reviwer:
-    name: IA Reviwer 
+  ai-reviewer:
+    name: AI Reviewer
     runs-on: ubuntu-22.04
     steps:
 
