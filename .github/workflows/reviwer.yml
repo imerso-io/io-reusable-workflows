@@ -11,6 +11,7 @@ on:
       pull-request-number:
         required: true
         type: number
+        default: 1
     secrets:
       GITHUB_AUTH_TOKEN:
         required: true
