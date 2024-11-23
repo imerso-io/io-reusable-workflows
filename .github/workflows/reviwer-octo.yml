@@ -1,0 +1,13 @@
+name: Running Octo
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+ octopulls:
+   uses: imerso-io/io-reusable-workflows/.github/workflows/reviwer.yml@feat/create-workflow-review-pr
+   with:
+     pull-request-number: 2
