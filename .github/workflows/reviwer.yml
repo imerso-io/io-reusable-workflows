@@ -1,16 +1,50 @@
 name: "IA Reviwer"
 on:
-  schedule:
-  - cron: "0 2 * * 1-5"
-
-
+  workflow_call:
+    inputs:
+      config-path:
+        required: false
+        type: string
+      runs-on:
+        required: false
+        type: string
+      pull-request-number:
+        required: true
+        type: number
+    secrets:
+      GITHUB_AUTH_TOKEN:
+        required: true
+      OPENAI_API_KEY:
+        required: true
 
 jobs:
   ia-reviwer:
     name: IA Reviwer 
     runs-on: ubuntu-22.04
-    
     steps:
-     - name: teste
-       run: |
-         echo teste
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        # Repository name with owner. For example, actions/checkout
+        repository: "imerso/ai-code-reviewer"
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4.1.0
+      with:
+        # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
+        node-version: 18.X
+
+    - name: Download Dep
+      run: |
+        npm i
+      
+    - name: Run Octopulls
+      env:
+        GITHUB_PULL_NUMBER: inputs.pull-request-number
+      run: |
+        export GITHUB_ORGANIZATION=$(echo ${{ github.repository }} | cut -d'/' -f1)
+        export GITHUB_REPOSITORY=$(echo ${{ github.repository }} | cut -d'/' -f2)
+        ls -la
+        npm run dev
+        
