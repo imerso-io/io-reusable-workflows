@@ -51,6 +51,7 @@ jobs:
         echo "GitHub Organization: $GITHUB_ORGANIZATION"
         echo "GitHub Repository: $GITHUB_REPOSITORY"
         echo "GitHub Auth Token: $GITHUB_AUTH_TOKEN"
+        echo "Github Pull Request Number: $GITHUB_PULL_NUMBER"
         echo "OpenAI API Key: $OPENAI_API_KEY"
         npm run dev
 
