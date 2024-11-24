@@ -27,7 +27,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        repository: 'imerso/ai-code-reviewer'
+        repository: 'imerso-io/ai-code-reviewer'
         token: ${{ secrets.AUTH_TOKEN }}
         ref: 'refs/heads/main'
         
