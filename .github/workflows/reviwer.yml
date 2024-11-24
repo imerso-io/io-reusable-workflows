@@ -44,8 +44,9 @@ jobs:
       env:
         GITHUB_PULL_NUMBER: inputs.pull-request-number
       run: |
-        export GITHUB_ORGANIZATION=$(echo ${{ github.repository }} | cut -d'/' -f1)
-        export GITHUB_REPOSITORY=$(echo ${{ github.repository }} | cut -d'/' -f2)
+        export GITHUB_ORGANIZATION=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
+        export GITHUB_REPOSITORY=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+        export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
         ls -la
         npm run dev
         
