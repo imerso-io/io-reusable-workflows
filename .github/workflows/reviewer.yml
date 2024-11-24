@@ -27,9 +27,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        repository: "imerso/ai-code-reviewer"
+        repository: 'imerso/ai-code-reviewer'
         token: ${{ secrets.AUTH_TOKEN }}
-
+        
     - name: Setup Node.js environment
       uses: actions/setup-node@v4.1.0
       with:
