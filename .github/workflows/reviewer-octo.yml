@@ -9,7 +9,7 @@ on:
 jobs:
  octopulls:
    secrets: inherit
-   uses: imerso-io/io-reusable-workflows/.github/workflows/reviwer.yml@feat/create-workflow-review-pr
+   uses: imerso-io/io-reusable-workflows/.github/workflows/reviewer.yml@feat/create-workflow-review-pr
    with:
      pull-request-number: 2
   
