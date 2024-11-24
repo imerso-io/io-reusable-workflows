@@ -27,13 +27,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        # Repository name with owner. For example, actions/checkout
-        repository: imerso/ai-code-reviewer
+        repository: "imerso/ai-code-reviewer"
 
     - name: Setup Node.js environment
       uses: actions/setup-node@v4.1.0
       with:
-        # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
         node-version: 18.X
 
     - name: Download Dep
