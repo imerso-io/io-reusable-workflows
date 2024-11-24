@@ -29,6 +29,7 @@ jobs:
       with:
         repository: 'imerso/ai-code-reviewer'
         token: ${{ secrets.AUTH_TOKEN }}
+        ref: 'refs/heads/main'
         
     - name: Setup Node.js environment
       uses: actions/setup-node@v4.1.0
