@@ -38,9 +38,9 @@ jobs:
 
     - name: Download Dep
       run: |
-        npm i
+        npm ci
       
-    - name: Run Octopulls
+    - name: Set environment variables
       env:
         GITHUB_PULL_NUMBER: inputs.pull-request-number
       run: |
@@ -49,5 +49,14 @@ jobs:
         export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
         export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
         ls -la
+    
+    - name: Test environment variables
+      run: |
+        echo "GitHub Organization: $GITHUB_ORGANIZATION"
+        echo "GitHub Repository: $GITHUB_REPOSITORY"
+        echo "GitHub Auth Token: $GITHUB_AUTH_TOKEN"
+        echo "OpenAI API Key: $OPENAI_API_KEY"
+    
+    - name: Run Octopulls
+      run: |
         npm run dev
-        
