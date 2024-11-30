@@ -8,7 +8,7 @@ on:
         type: string
         default: ubuntu-latest
       branch-name:
-        required: ture
+        required: false
         type: string
         default: 'main'
 
