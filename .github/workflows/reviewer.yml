@@ -1,0 +1,56 @@
+name: AI Reviewer
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: false
+        type: string
+      runs-on:
+        required: false
+        type: string
+      pull-request-number:
+        required: true
+        type: number
+        default: 1
+    secrets:
+      AUTH_TOKEN:
+        required: true
+      OPENAI_API_KEY:
+        required: true
+
+jobs:
+  ai-reviewer:
+    name: AI Reviewer
+    runs-on: ubuntu-22.04
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        repository: 'imerso-io/ai-code-reviewer'
+        token: ${{ secrets.AUTH_TOKEN }}
+        ref: 'refs/heads/main'
+        
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v4.1.0
+      with:
+        node-version: 18.X
+
+    - name: Download Dep
+      run: |
+        npm ci
+      
+    - name: Run Octopulls
+      env:
+        GITHUB_PULL_NUMBER: ${{ inputs.pull-request-number }}
+      run: |
+        export GITHUB_ORGANIZATION=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
+        export GITHUB_REPOSITORY=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
+        export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
+        export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+        echo "GitHub Organization: $GITHUB_ORGANIZATION"
+        echo "GitHub Repository: $GITHUB_REPOSITORY"
+        echo "GitHub Auth Token: $GITHUB_AUTH_TOKEN"
+        echo "Github Pull Request Number: $GITHUB_PULL_NUMBER"
+        echo "OpenAI API Key: $OPENAI_API_KEY"
+        npm run dev

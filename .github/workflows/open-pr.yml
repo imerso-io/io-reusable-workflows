@@ -1,1 +1,28 @@
-io-reusable-workflows/.github/workflows/ci.yml
+name: Open PR
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: false
+        type: string
+        default: ubuntu-latest
+      branch-name:
+        required: ture
+        type: string
+        default: 'main'
+
+
+jobs:
+  open-pr:
+    outputs:
+      pr-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+    runs-on: ${{ inputs.runs-on }} 
+    steps:      
+      - name: Create Pull Request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: 'Pull Request Criado Automaticamente -> Develop'
+          head:  ${{ inputs.branch-name }} 

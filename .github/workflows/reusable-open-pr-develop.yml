@@ -1,0 +1,25 @@
+name: CI NPM Development
+
+on:
+  push:
+    branches:
+      - feat**
+      - fix**
+      - chore**
+
+jobs:
+  # ci-node:
+  #  secrets: inherit
+  #  uses: imerso-io/io-reusable-workflows/.github/workflows/ci-node.yml@main
+
+  open-pr:
+  #  needs: [ci-node]
+   secrets: inherit
+   uses: imerso-io/io-reusable-workflows/.github/workflows/open-pr.yml@feat/create-workflow-schedule
+
+  octopulls:
+    needs: [open-pr]
+    secrets: inherit
+    uses: imerso-io/io-reusable-workflows/.github/workflows/reviewer.yml@feat/create-workflow-schedule
+    with:
+      pull-request-number: ${{ needs.open-pr.outputs.pr-number }}
