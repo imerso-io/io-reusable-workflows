@@ -21,7 +21,12 @@ jobs:
       pr-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - name: Create Pull Request
+      - name: Checkout do repositório
+        uses: actions/checkout@v3 
+        with:
+          token: ${{ secrets.AUTH_TOKEN }}
+      
+      - name: Criar Pull Request
         id: create-pull-request
         uses: peter-evans/create-pull-request@v7
         with:
@@ -32,7 +37,8 @@ jobs:
             automated pr
           assignees: pedrooliveiralopes
           reviewers: pedrooliveiralopes
-          branch: ${{ github.head_ref }}
+          branch: ${{ github.head_ref }} 
           delete-branch: true
+          repository: ${{ github.repository }}
 
   
