@@ -11,18 +11,28 @@ on:
         required: false
         type: string
         default: 'main'
-
+    secrets:
+      AUTH_TOKEN:
+        required: true
 
 jobs:
   open-pr:
     outputs:
       pr-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
-    runs-on: ${{ inputs.runs-on }} 
-    steps:      
+    runs-on: ${{ inputs.runs-on }}
+    steps:
       - name: Create Pull Request
         id: create-pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.AUTH_TOKEN }}
           title: 'Pull Request Criado Automaticamente -> Develop'
-          head:  ${{ inputs.branch-name }} 
+          base: ${{ inputs.branch-name }}
+          labels: |
+            automated pr
+          assignees: pedrooliveiralopes
+          reviewers: pedrooliveiralopes
+          branch: ${{ github.head_ref }}
+          delete-branch: true
+
+  
