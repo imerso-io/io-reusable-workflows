@@ -13,13 +13,14 @@ on:
 
 jobs:
   open-pr:
-   secrets: inherit
-   uses: imerso-io/io-reusable-workflows/.github/workflows/open-pr.yml@feat/create-workflow-schedule
-   with:
-     base-branch-name: develop
-  octopulls:
-    needs: [open-pr]
+    uses: imerso-io/io-reusable-workflows/.github/workflows/open-pr.yml@feat/create-workflow-schedule
+    with:
+      base-branch-name: develop
+      runs-on: ubuntu-latest
     secrets: inherit
+  octopulls:
+    needs: open-pr
     uses: imerso-io/io-reusable-workflows/.github/workflows/reviewer.yml@feat/create-workflow-schedule
     with:
       pull-request-number: ${{ needs.open-pr.outputs.pull-request-number }}
+    secrets: inherit
