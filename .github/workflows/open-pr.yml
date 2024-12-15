@@ -57,7 +57,7 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
           title:  ${{ steps.valida-valores.outputs.title }}
           base: ${{ inputs.base-branch-name }}
-          head: ${{ steps.valida-valores.outputs.head-branch-name }}
+          branch: ${{ steps.valida-valores.outputs.head-branch-name }}
           labels: |
             automated pr
           assignees: pedrooliveiralopes
