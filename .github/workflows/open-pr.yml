@@ -63,7 +63,7 @@ jobs:
           assignees: pedrooliveiralopes
           reviewers: lucasgianine
 
-        - run: |
-            echo "pr number: ${{ steps.create-pull-request.outputs.pull-request-number }}"
+      - run: |
+          echo "pr number: ${{ steps.create-pull-request.outputs.pull-request-number }}"
 
   
