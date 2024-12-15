@@ -40,7 +40,7 @@ jobs:
         id: create-pull-request
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.AUTH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Pull Request Criado Automaticamente -> Develop'
           base: ${{ inputs.branch-name }}
           labels: |
