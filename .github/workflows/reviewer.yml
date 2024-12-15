@@ -13,7 +13,7 @@ on:
         type: number
         default: 1
     secrets:
-      AUTH_TOKEN:
+      PAT_TOKEN:
         required: true
       OPENAI_API_KEY:
         required: true
@@ -46,7 +46,7 @@ jobs:
       run: |
         export GITHUB_ORGANIZATION=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
         export GITHUB_REPOSITORY=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-        export GITHUB_AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
+        export GITHUB_AUTH_TOKEN=${{ secrets.PAT_TOKEN }}
         export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
         echo "GitHub Organization: $GITHUB_ORGANIZATION"
         echo "GitHub Repository: $GITHUB_REPOSITORY"
