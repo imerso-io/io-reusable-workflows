@@ -19,7 +19,7 @@ on:
       PAT_TOKEN:
         required: true
     outputs:
-      pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+      pull-request-number: ${{ jobs.open-pr.outputs.pull-request-number }}
 
 jobs:
   open-pr:
