@@ -55,9 +55,9 @@ jobs:
         uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          title: 'Pull Request Criado Automaticamente -> '
+          title:  ${{ steps.valida-valores.outputs.title }}
           base: ${{ inputs.base-branch-name }}
-          branch: ${{ steps.valida-branch.outputs.head-branch-name }}
+          branch: ${{ steps.valida-valores.outputs.head-branch-name }}
           labels: |
             automated pr
           assignees: pedrooliveiralopes
