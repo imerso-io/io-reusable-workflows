@@ -12,12 +12,7 @@ on:
       - chore**
 
 jobs:
-  # ci-node:
-  #  secrets: inherit
-  #  uses: imerso-io/io-reusable-workflows/.github/workflows/ci-node.yml@main
-
   open-pr:
-  #  needs: [ci-node]
    secrets: inherit
    uses: imerso-io/io-reusable-workflows/.github/workflows/open-pr.yml@feat/create-workflow-schedule
    with:
