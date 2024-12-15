@@ -22,7 +22,7 @@ on:
 jobs:
   open-pr:
     outputs:
-      pr-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+      pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
     runs-on: ${{ inputs.runs-on }}
     steps:
       - name: Checkout do repositório
@@ -63,7 +63,5 @@ jobs:
           assignees: pedrooliveiralopes
           reviewers: lucasgianine
 
-      - run: |
-          echo "pr number: ${{ steps.create-pull-request.outputs.pull-request-number }}"
 
   
