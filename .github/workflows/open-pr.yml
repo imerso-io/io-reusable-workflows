@@ -37,7 +37,7 @@ jobs:
           script: |
             console.log(${{ inputs.head-branch-name }})
             console.log(${{ github.ref }})
-            const headBranchName = ${{ inputs.head-branch-name }} == 'Não definida' ? ${{ inputs.head-branch-name }} : ${{ github.ref }}
+            const headBranchName = ${{ inputs.head-branch-name }} == 'Não definida' ? ${{ github.ref }} : ${{ inputs.head-branch-name }}
             const baseBranch = ${{ inputs.base-branch-name }}.charAt(0).toUpperCase() + ${{ inputs.base-branch-name }}.slice(1)
             const title = `Pull Request Criado Automaticamente -> ${baseBranch}`
             core.setOutput('head-branch-name', headBranchName)
