@@ -8,6 +8,7 @@ on:
       runs-on:
         required: false
         type: string
+        default: ubuntu-22.04
       pull-request-number:
         required: true
         type: string
@@ -20,7 +21,7 @@ on:
 jobs:
   ai-reviewer:
     name: AI Reviewer
-    runs-on: ubuntu-22.04
+    runs-on: ${{ inputs.runs-on }}
     steps:
 
     - name: Checkout
