@@ -1,9 +1,5 @@
 name: Open PR
 
-permissions:
-  contents: write
-  pull-requests: write
-
 on:
   workflow_call:
     inputs:
@@ -11,10 +7,13 @@ on:
         required: false
         type: string
         default: ubuntu-latest
-      branch-name:
+      base-branch-name:
         required: false
         type: string
-        default: 'main'
+        default: main
+      head-branch-name:
+        required: false
+        type: string
     secrets:
       PAT_TOKEN:
         required: true
@@ -30,9 +29,17 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
       
+      - name: Validando valores
+        id: valida-branch
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const headBranchName = ${{ inputs.head-branch-name }} ? ${{ inputs.head-branch-name }} : ${{ github.ref }}
+            core.setOutput(head-branch-name, headBranchName)
+            
       - name: Exibir valores de entrada
         run: |
-          echo "Branch: ${{ inputs.branch-name }}"
+          echo "Branch: ${{ inputs.base-branch-name }}"
           echo "Runs on: ${{ inputs.runs-on }}"
           echo "Repository: ${{ github.repository }}"
 
@@ -42,8 +49,8 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
           title: 'Pull Request Criado Automaticamente -> Develop'
-          base: ${{ inputs.branch-name }}
-          branch: ${{ github.ref }}
+          base: ${{ inputs.base-branch-name }}
+          branch: ${{ steps.valida-branch.outputs.head-branch-name }}
           labels: |
             automated pr
           assignees: pedrooliveiralopes
