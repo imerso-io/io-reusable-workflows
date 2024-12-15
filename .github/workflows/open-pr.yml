@@ -43,6 +43,7 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
           title: 'Pull Request Criado Automaticamente -> Develop'
           base: ${{ inputs.branch-name }}
+          branch: ${{ github.ref }}
           labels: |
             automated pr
           assignees: pedrooliveiralopes
