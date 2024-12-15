@@ -30,12 +30,17 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
       
       - name: Validando valores
-        id: valida-branch
+        id: valida-valores
         uses: actions/github-script@v7
         with:
           script: |
-            const headBranchName = ${{ inputs.head-branch-name }} ? ${{ inputs.head-branch-name }} : ${{ github.ref }}
-            core.setOutput(head-branch-name, headBranchName)
+            console.log(${{ inputs.head-branch-name }})
+            console.log(${{ github.ref }})
+            const headBranchName = ${{ inputs.head-branch-name }} == '' ? ${{ inputs.head-branch-name }} : ${{ github.ref }}
+            const baseBranch = ${{ inputs.base-branch-name }}.charAt(0)toUpperCase() + ${{ inputs.base-branch-name }}.slice(1)
+            const title = `Pull Request Criado Automaticamente -> ${baseBranch}`
+            core.setOutput('head-branch-name', headBranchName)
+            core.setOutput('title', title)
             
       - name: Exibir valores de entrada
         run: |
@@ -48,7 +53,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7.0.5
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          title: 'Pull Request Criado Automaticamente -> Develop'
+          title: 'Pull Request Criado Automaticamente -> '
           base: ${{ inputs.base-branch-name }}
           branch: ${{ steps.valida-branch.outputs.head-branch-name }}
           labels: |
