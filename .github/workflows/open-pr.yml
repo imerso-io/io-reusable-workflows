@@ -47,7 +47,6 @@ jobs:
           labels: |
             automated pr
           assignees: pedrooliveiralopes
-          reviewers: pedrooliveiralopes
-
+          reviewers: lucasgianine
 
   
