@@ -10,8 +10,7 @@ on:
         type: string
       pull-request-number:
         required: true
-        type: number
-        default: 1
+        type: string
     secrets:
       PAT_TOKEN:
         required: true
