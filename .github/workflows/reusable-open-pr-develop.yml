@@ -22,5 +22,5 @@ jobs:
     needs: open-pr
     uses: imerso-io/io-reusable-workflows/.github/workflows/reviewer.yml@feat/create-workflow-schedule
     with:
-      pull-request-number: '${{ needs.open-pr.outputs.pull-request-number }}'
+      pull-request-number: ${{ needs.open-pr.outputs.pull-request-number }}
     secrets: inherit
