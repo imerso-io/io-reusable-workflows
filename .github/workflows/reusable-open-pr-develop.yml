@@ -16,7 +16,7 @@ jobs:
    secrets: inherit
    uses: imerso-io/io-reusable-workflows/.github/workflows/open-pr.yml@feat/create-workflow-schedule
    with:
-     branch-name: develop
+     base-branch-name: develop
   octopulls:
     needs: [open-pr]
     secrets: inherit
