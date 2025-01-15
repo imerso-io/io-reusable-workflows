@@ -1,0 +1,29 @@
+name: CI NPM
+
+on:
+  workflow_call:
+    inputs:
+      base-branch-name:
+        required: false
+        type: string
+        default: ubuntu-latest
+
+
+jobs:
+    ci:
+        uses: imerso-io/io-reusable-workflows/.github/workflows/ci-node.yml@main
+        with:
+            secrets: inherit
+
+    open-pr:
+        uses: imerso-io/io-reusable-workflows/.github/workflows/open-pr.yml@main
+        with:
+            base-branch-name: ${{ inputs.base-branch-name }}
+            secrets: inherit
+    
+    octopulls:
+        needs: open-pr
+        uses: imerso-io/io-reusable-workflows/.github/workflows/reviewer.yml@main
+        with:
+            pull-request-number: ${{ needs.open-pr.outputs.pull-request-number }}
+            secrets: inherit
