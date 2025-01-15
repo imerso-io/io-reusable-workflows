@@ -9,7 +9,9 @@ on:
         default: ubuntu-latest
     secrets:
       SENTRY_AUTH_TOKEN:
-        required: true    
+        required: true
+      PAT_TOKEN:
+        required: true
 
 jobs:
     ci:
