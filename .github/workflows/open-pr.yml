@@ -1,0 +1,74 @@
+name: Open PR
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        required: false
+        type: string
+        default: ubuntu-latest
+      base-branch-name:
+        required: false
+        type: string
+        default: main
+      head-branch-name:
+        required: false
+        type: string
+        default: 'Não definida'
+    secrets:
+      PAT_TOKEN:
+        required: true
+    outputs:
+      pull-request-number:
+        description: "Numero do PR"
+        value: ${{ jobs.open-pr.outputs.pull-request-number }}
+    
+
+jobs:
+  open-pr:
+    outputs:
+      pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+      
+      - name: Validando valores
+        id: valida-valores
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const headBranchName = '${{ inputs.head-branch-name }}' === 'Não definida' ? '${{ github.ref }}' : '${{ inputs.head-branch-name }}';
+            const baseBranch = '${{ inputs.base-branch-name }}'.charAt(0).toUpperCase() + '${{ inputs.base-branch-name }}'.slice(1);
+            const title = `Pull Request Criado Automaticamente -> ${baseBranch}`;
+            console.log(headBranchName);
+            console.log(title);
+            // Set outputs
+            core.setOutput('head-branch-name', headBranchName);
+            core.setOutput('title', title);
+            
+      - name: Exibir valores de entrada
+        run: |
+          echo "Branch: ${{ inputs.base-branch-name }}"
+          echo "Runs on: ${{ inputs.runs-on }}"
+          echo "Repository: ${{ github.repository }}"
+
+      - name: Criar Pull Request
+        id: create-pull-request
+        uses: peter-evans/create-pull-request@v7.0.5
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+          title:  ${{ steps.valida-valores.outputs.title }}
+          base: ${{ inputs.base-branch-name }}
+          branch: ${{ steps.valida-valores.outputs.head-branch-name }}
+          labels: |
+            automated pr
+          assignees: pedrooliveiralopes
+          reviewers: lucasgianine
+
+      - name: Exibir o número do PR
+        run: |
+          echo "Pull Request Number: ${{ steps.create-pull-request.outputs.pull-request-number }}"
+
