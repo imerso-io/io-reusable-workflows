@@ -20,6 +20,9 @@ on:
 
 jobs:
   ai-reviewer:
+    env:
+      GITHUB_AUTH_TOKEN: ${{ secrets.PAT_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     name: AI Reviewer
     runs-on: ${{ inputs.runs-on }}
     steps:
@@ -44,8 +47,6 @@ jobs:
       run: |
         export GITHUB_ORGANIZATION=$(echo $GITHUB_REPOSITORY | cut -d'/' -f1)
         export GITHUB_REPOSITORY=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-        export GITHUB_AUTH_TOKEN=${{ secrets.PAT_TOKEN }}
-        export OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
         export GITHUB_PULL_NUMBER=${{ inputs.pull-request-number }}
         echo "GitHub Organization: $GITHUB_ORGANIZATION"
         echo "GitHub Repository: $GITHUB_REPOSITORY"

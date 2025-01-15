@@ -12,7 +12,8 @@ on:
         required: true
       PAT_TOKEN:
         required: true
-
+      OPENAI_API_KEY:
+        required: true
 jobs:
     ci:
         uses: imerso-io/io-reusable-workflows/.github/workflows/ci-node.yml@main
